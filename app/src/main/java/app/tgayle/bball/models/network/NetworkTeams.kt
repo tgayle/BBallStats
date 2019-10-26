@@ -1,11 +1,11 @@
 package app.tgayle.bball.models.network
 
-import app.tgayle.bball.models.Player
+import app.tgayle.bball.models.Team
 import com.google.gson.annotations.SerializedName
 
-data class NetworkPlayer(
+data class NetworkTeams(
     @SerializedName("data")
-    val players: List<Player>,
+    val teams: List<Team>,
     @SerializedName("meta")
     val meta: Meta
 )
