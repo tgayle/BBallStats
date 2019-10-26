@@ -2,37 +2,56 @@ package app.tgayle.bball.models
 
 import androidx.room.Entity
 import androidx.room.Ignore
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
 @Entity
 data class Game(
+    @PrimaryKey
     @SerializedName("id")
-    val id: Int,
+    var id: Int,
     @SerializedName("date")
-    val date: String,
+    var date: String,
 
     @Ignore
     @SerializedName("home_team")
-    val homeTeam: Team,
+    var homeTeam: Team?,
     @SerializedName("home_team_score")
-    val homeTeamScore: Int,
+    var homeTeamScore: Int,
     @SerializedName("period")
-    val period: Int,
+    var period: Int,
     @SerializedName("postseason")
-    val postseason: Boolean,
+    var postseason: Boolean,
     @SerializedName("season")
-    val season: Int,
+    var season: Int,
     @SerializedName("status")
-    val status: String,
+    var status: String,
     @SerializedName("time")
-    val time: String,
+    var time: String,
 
     @Ignore
     @SerializedName("visitor_team")
-    val visitorTeam: Team,
+    var visitorTeam: Team?,
     @SerializedName("visitor_team_score")
-    val visitorTeamScore: Int,
+    var visitorTeamScore: Int,
 
-    val homeTeamId: Int = homeTeam.id,
-    val visitorTeamId: Int = visitorTeam.id
-)
+    var homeTeamId: Int = homeTeam?.id ?: 0,
+    var visitorTeamId: Int = visitorTeam?.id ?: 0
+) {
+    constructor(
+        id: Int,
+        date: String,
+        homeTeamScore: Int,
+        period: Int,
+        postseason: Boolean,
+        season: Int,
+        status: String,
+        time: String,
+        visitorTeamScore: Int,
+        homeTeamId: Int,
+        visitorTeamId: Int
+    ) : this(
+        id, date, null, homeTeamScore, period, postseason, season, status, time,
+        null, visitorTeamScore, homeTeamId, visitorTeamId
+    )
+}

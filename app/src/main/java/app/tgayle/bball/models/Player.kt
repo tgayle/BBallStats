@@ -2,29 +2,52 @@ package app.tgayle.bball.models
 
 import androidx.room.Entity
 import androidx.room.Ignore
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
 @Entity
 data class Player(
+    @PrimaryKey
     @SerializedName("id")
-    val id: Int,
+    var id: Int,
     @SerializedName("first_name")
-    val firstName: String,
+    var firstName: String,
     @SerializedName("last_name")
-    val lastName: String,
+    var lastName: String,
     @SerializedName("position")
-    val position: String,
+    var position: String,
 
     @Ignore
     @SerializedName("team")
-    val team: Team,
+    var team: Team?,
 
     @SerializedName("height_feet")
-    val heightFeet: Int?,
+    var heightFeet: Int?,
     @SerializedName("height_inches")
-    val heightInches: Int?,
+    var heightInches: Int?,
     @SerializedName("weight_pounds")
-    val weightPounds: Int?,
+    var weightPounds: Int?,
 
-    val teamId: Int = team.id
-)
+    var teamId: Int = team?.id ?: 0
+) {
+    constructor(
+        id: Int,
+        firstName: String,
+        lastName: String,
+        position: String,
+        heightFeet: Int?,
+        heightInches: Int?,
+        weightPounds: Int?,
+        teamId: Int
+    ) : this(
+        id,
+        firstName,
+        lastName,
+        position,
+        null,
+        heightFeet,
+        heightInches,
+        weightPounds,
+        teamId
+    )
+}

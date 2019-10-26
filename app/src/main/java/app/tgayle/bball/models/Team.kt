@@ -1,22 +1,24 @@
 package app.tgayle.bball.models
 
 import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
 @Entity
 data class Team(
+    @PrimaryKey
     @SerializedName("id")
-    val id: Int,
+    var id: Int,
     @SerializedName("abbreviation")
-    val abbreviation: String,
+    var abbreviation: String,
     @SerializedName("city")
-    val city: String,
+    var city: String,
     @SerializedName("conference")
-    val conference: String,
+    var conference: String,
     @SerializedName("division")
-    val division: String,
+    var division: String,
     @SerializedName("full_name")
-    val fullName: String,
+    var fullName: String,
     @SerializedName("name")
-    val name: String
+    var name: String
 )

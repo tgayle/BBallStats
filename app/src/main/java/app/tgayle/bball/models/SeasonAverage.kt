@@ -1,50 +1,53 @@
 package app.tgayle.bball.models
 
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
 data class SeasonAverage(
+    @PrimaryKey(autoGenerate = true)
+    var id: Int = 0,
     @SerializedName("games_played")
-    val gamesPlayed: Int,
+    var gamesPlayed: Int,
     @SerializedName("player_id")
-    val playerId: Int,
+    var playerId: Int,
     @SerializedName("season")
-    val season: Int,
+    var season: Int,
     @SerializedName("min")
-    val minutesPlayed: String,
+    var minutesPlayed: String,
     @SerializedName("fgm")
-    val fieldGoalsMade: Double,
+    var fieldGoalsMade: Double,
     @SerializedName("fga")
-    val fieldGoalsAttempted: Double,
+    var fieldGoalsAttempted: Double,
     @SerializedName("fg3m")
-    val threePointFGsMade: Double,
+    var threePointFGsMade: Double,
     @SerializedName("fg3a")
-    val threePointFGsAttempted: Double,
+    var threePointFGsAttempted: Double,
     @SerializedName("ftm")
-    val freeThrowsMade: Double,
+    var freeThrowsMade: Double,
     @SerializedName("fta")
-    val freeThrowsAttempted: Double,
+    var freeThrowsAttempted: Double,
     @SerializedName("oreb")
-    val offensiveRebounds: Double,
+    var offensiveRebounds: Double,
     @SerializedName("dreb")
-    val defensiveRebounds: Double,
+    var defensiveRebounds: Double,
     @SerializedName("reb")
-    val rebounds: Double,
+    var rebounds: Double,
     @SerializedName("ast")
-    val assists: Double,
+    var assists: Double,
     @SerializedName("stl")
-    val steals: Double,
+    var steals: Double,
     @SerializedName("blk")
-    val blocks: Double,
+    var blocks: Double,
     @SerializedName("turnover")
-    val turnover: Double,
+    var turnover: Double,
     @SerializedName("pf")
-    val personalFouls: Double,
+    var personalFouls: Double,
     @SerializedName("pts")
-    val points: Double,
+    var points: Double,
     @SerializedName("fg_pct")
-    val fieldGoalPercent: Double,
+    var fieldGoalPercent: Double,
     @SerializedName("fg3_pct")
-    val threePointFGPercent: Double,
+    var threePointFGPercent: Double,
     @SerializedName("ft_pct")
-    val freeThrowPercent: Double
+    var freeThrowPercent: Double
 )

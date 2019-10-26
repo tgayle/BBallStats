@@ -3,63 +3,97 @@ package app.tgayle.bball.models
 
 import androidx.room.Entity
 import androidx.room.Ignore
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
 @Entity
 data class GameStats(
+    @PrimaryKey
     @SerializedName("id")
-    val id: Int,
+    var id: Int,
     @SerializedName("ast")
-    val assists: Int,
+    var assists: Int,
     @SerializedName("blk")
-    val blocks: Int,
+    var blocks: Int,
     @SerializedName("dreb")
-    val defensiveRebounds: Int,
+    var defensiveRebounds: Int,
     @SerializedName("fg3_pct")
-    val threePointFGPercent: Double,
+    var threePointFGPercent: Double,
     @SerializedName("fg3a")
-    val threePointFGsAttempted: Int,
+    var threePointFGsAttempted: Int,
     @SerializedName("fg3m")
-    val threePointFGsMade: Int,
+    var threePointFGsMade: Int,
     @SerializedName("fg_pct")
-    val fieldGoalPercent: Double,
+    var fieldGoalPercent: Double,
     @SerializedName("fga")
-    val fieldGoalsAttempted: Int,
+    var fieldGoalsAttempted: Int,
     @SerializedName("fgm")
-    val fieldGoalsMade: Int,
+    var fieldGoalsMade: Int,
     @SerializedName("ft_pct")
-    val freeThrowPercent: Double,
+    var freeThrowPercent: Double,
     @SerializedName("fta")
-    val freeThrowsAttempted: Int,
+    var freeThrowsAttempted: Int,
     @SerializedName("ftm")
-    val freeThrowsMade: Int,
+    var freeThrowsMade: Int,
 
     @Ignore
     @SerializedName("game")
-    val game: Game,
+    var game: Game?,
     @SerializedName("min")
-    val min: String,
+    var min: String,
     @SerializedName("oreb")
-    val offensiveRebounds: Int,
+    var offensiveRebounds: Int,
     @SerializedName("pf")
-    val personalFouls: Int,
+    var personalFouls: Int,
 
     @Ignore
     @SerializedName("player")
-    val player: Player,
+    var player: Player?,
     @SerializedName("pts")
-    val points: Int,
+    var points: Int,
     @SerializedName("reb")
-    val rebounds: Int,
+    var rebounds: Int,
     @SerializedName("stl")
-    val steals: Int,
+    var steals: Int,
 
     @Ignore
     @SerializedName("team")
-    val team: Team,
+    var team: Team?,
     @SerializedName("turnover")
-    val turnover: Int,
+    var turnover: Int,
 
-    val gameId: Int = game.id,
-    val playerId: Int = player.id
-)
+    var teamId: Int = team?.id ?: 0,
+    var gameId: Int = game?.id ?: 0,
+    var playerId: Int = player?.id ?: 0
+) {
+    constructor(
+        id: Int,
+        assists: Int,
+        blocks: Int,
+        defensiveRebounds: Int,
+        threePointFGPercent: Double,
+        threePointFGsAttempted: Int,
+        threePointFGsMade: Int,
+        fieldGoalPercent: Double,
+        fieldGoalsAttempted: Int,
+        fieldGoalsMade: Int,
+        freeThrowPercent: Double,
+        freeThrowsAttempted: Int,
+        freeThrowsMade: Int,
+        min: String,
+        offensiveRebounds: Int,
+        personalFouls: Int,
+        points: Int,
+        rebounds: Int,
+        steals: Int,
+        turnover: Int,
+        teamId: Int,
+        gameId: Int,
+        playerId: Int
+    ) : this(
+        id, assists, blocks, defensiveRebounds, threePointFGPercent, threePointFGsAttempted,
+        threePointFGsMade, fieldGoalPercent, fieldGoalsAttempted, fieldGoalsMade, freeThrowPercent,
+        freeThrowsAttempted, freeThrowsMade, null, min, offensiveRebounds, personalFouls, null,
+        points, rebounds, steals, null, turnover, teamId, gameId, playerId
+    )
+}
