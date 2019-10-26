@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
-    app:startDestination="@id/listTeamsFragment">
+    app:startDestination="@id/recentGamesFragment">
 
     <fragment
-        android:id="@+id/listTeamsFragment"
-        android:name="app.tgayle.bball.ui.listteams.ListTeamsFragment"
-        android:label="list_teams_fragment"
-        tools:layout="@layout/list_teams_fragment">
+        android:id="@+id/recentGamesFragment"
+        android:name="app.tgayle.bball.ui.recentgames.RecentGamesFragment"
+        android:label="recent_games_fragment"
+        tools:layout="@layout/recent_games_fragment">
         <action
             android:id="@+id/action_listTeamsFragment_to_teamDetailsFragment"
             app:destination="@id/teamDetailsFragment" />
@@ -25,6 +25,9 @@
         <action
             android:id="@+id/action_gameDetailsFragment_to_teamDetailsFragment"
             app:destination="@id/teamDetailsFragment" />
+        <argument
+            android:name="gameId"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/teamDetailsFragment"
@@ -34,5 +37,8 @@
         <action
             android:id="@+id/action_teamDetailsFragment_to_gameDetailsFragment"
             app:destination="@id/gameDetailsFragment" />
+        <argument
+            android:name="teamId"
+            app:argType="integer" />
     </fragment>
 </navigation>

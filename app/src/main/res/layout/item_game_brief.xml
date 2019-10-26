@@ -74,6 +74,14 @@
                 app:layout_constraintStart_toStartOf="parent"
                 tools:text="October 2, 2019" />
 
+            <ImageView
+                android:id="@+id/moreMenuIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_more"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>

@@ -1,13 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.gamedetails.GameDetailsFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <TextView
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="app.tgayle.bball.ui.gamedetails.GameDetailsViewModel" />
+
+    </data>
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
+        android:id="@+id/swipeRefresh"
         android:layout_height="match_parent"
-        android:text="Hello" />
+        android:layout_margin="16dp">
 
-</FrameLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".ui.gamedetails.GameDetailsFragment">
+
+            <TextView
+                android:id="@+id/homeTeamText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:text="@{viewmodel.currentGame.homeTeam.abbreviation}"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toStartOf="@id/vsText"
+                app:layout_constraintTop_toTopOf="@id/vsText"
+                tools:text="TEAM 1" />
+
+            <TextView
+                android:id="@+id/vsText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="VS"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/visitorTeamText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@{viewmodel.currentGame.visitorTeam.abbreviation}"
+                android:textSize="24sp"
+                app:layout_constraintStart_toEndOf="@id/vsText"
+                app:layout_constraintTop_toTopOf="@id/vsText"
+                tools:text="TEAM 2" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{viewmodel.currentGame.homeTeam.fullName}"
+                app:layout_constraintEnd_toStartOf="@id/vsText"
+                app:layout_constraintTop_toBottomOf="@id/homeTeamText"
+                tools:text="Team 1 Full Name" />
+
+            <TextView
+                android:id="@+id/visitorTeamFullName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{viewmodel.currentGame.visitorTeam.fullName}"
+                app:layout_constraintStart_toEndOf="@id/vsText"
+                app:layout_constraintTop_toBottomOf="@id/visitorTeamText"
+                tools:text="Team 2 Full Name" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{viewmodel.currentGame.homeTeamScore + ` : ` + viewmodel.currentGame.visitorTeamScore}"
+                android:textSize="36sp"
+                app:layout_constraintEnd_toEndOf="@id/visitorTeamText"
+                app:layout_constraintStart_toStartOf="@id/homeTeamText"
+                app:layout_constraintTop_toBottomOf="@id/visitorTeamFullName"
+                tools:text="13 : 37" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{viewmodel.currentGame.season + `-` + viewmodel.currentGame.season + 1}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/visitorTeamText"
+                tools:text="2018-2019" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+</layout>
