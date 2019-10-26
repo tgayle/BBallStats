@@ -1,8 +1,11 @@
 package app.tgayle.bball.models
 
 
+import androidx.room.Entity
+import androidx.room.Ignore
 import com.google.gson.annotations.SerializedName
 
+@Entity
 data class GameStats(
     @SerializedName("id")
     val id: Int,
@@ -30,6 +33,8 @@ data class GameStats(
     val freeThrowsAttempted: Int,
     @SerializedName("ftm")
     val freeThrowsMade: Int,
+
+    @Ignore
     @SerializedName("game")
     val game: Game,
     @SerializedName("min")
@@ -38,6 +43,8 @@ data class GameStats(
     val offensiveRebounds: Int,
     @SerializedName("pf")
     val personalFouls: Int,
+
+    @Ignore
     @SerializedName("player")
     val player: Player,
     @SerializedName("pts")
@@ -46,8 +53,13 @@ data class GameStats(
     val rebounds: Int,
     @SerializedName("stl")
     val steals: Int,
+
+    @Ignore
     @SerializedName("team")
     val team: Team,
     @SerializedName("turnover")
-    val turnover: Int
+    val turnover: Int,
+
+    val gameId: Int = game.id,
+    val playerId: Int = player.id
 )
