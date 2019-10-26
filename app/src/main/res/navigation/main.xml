@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    app:startDestination="@id/listTeamsFragment">
+
+    <fragment
+        android:id="@+id/listTeamsFragment"
+        android:name="app.tgayle.bball.ui.listteams.ListTeamsFragment"
+        android:label="list_teams_fragment"
+        tools:layout="@layout/list_teams_fragment">
+        <action
+            android:id="@+id/action_listTeamsFragment_to_teamDetailsFragment"
+            app:destination="@id/teamDetailsFragment" />
+        <action
+            android:id="@+id/action_listTeamsFragment_to_gameDetailsFragment"
+            app:destination="@id/gameDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/gameDetailsFragment"
+        android:name="app.tgayle.bball.ui.gamedetails.GameDetailsFragment"
+        android:label="game_details_fragment"
+        tools:layout="@layout/game_details_fragment">
+        <action
+            android:id="@+id/action_gameDetailsFragment_to_teamDetailsFragment"
+            app:destination="@id/teamDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/teamDetailsFragment"
+        android:name="app.tgayle.bball.ui.teamdetails.TeamDetailsFragment"
+        android:label="team_details_fragment"
+        tools:layout="@layout/team_details_fragment">
+        <action
+            android:id="@+id/action_teamDetailsFragment_to_gameDetailsFragment"
+            app:destination="@id/gameDetailsFragment" />
+    </fragment>
+</navigation>
