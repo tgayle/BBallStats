@@ -4,15 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import app.tgayle.bball.databinding.ItemChooseTeamBinding
 import app.tgayle.bball.databinding.SwitchTeamFragmentBinding
 import app.tgayle.bball.getTeamLogo
 import app.tgayle.bball.models.Team
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-class SwitchTeamDialog(val teams: List<Team>) : DialogFragment() {
+class SwitchTeamDialog(val teams: List<Team>) : BottomSheetDialogFragment() {
     private lateinit var binding: SwitchTeamFragmentBinding
     var onTeamSelected: (team: Team) -> Unit = {}
 
@@ -54,6 +54,8 @@ class SwitchTeamDialog(val teams: List<Team>) : DialogFragment() {
             binding.image.setImageDrawable(binding.root.context.getDrawable(getTeamLogo(team.abbreviation)))
 
             binding.root.setOnClickListener {
+                onTeamSelected(team)
+                dismiss()
             }
         }
     }

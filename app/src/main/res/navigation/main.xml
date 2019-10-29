@@ -16,6 +16,14 @@
         <action
             android:id="@+id/action_listTeamsFragment_to_gameDetailsFragment"
             app:destination="@id/gameDetailsFragment" />
+        <action
+            android:id="@+id/action_recentGamesFragment_to_onboardingFragment"
+            app:destination="@id/onboardingFragment"
+            app:popUpTo="@+id/main"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_recentGamesFragment_to_switchTeamDialog"
+            app:destination="@id/switchTeamDialog" />
     </fragment>
     <fragment
         android:id="@+id/gameDetailsFragment"
@@ -44,5 +52,15 @@
     <fragment
         android:id="@+id/onboardingFragment"
         android:name="app.tgayle.bball.ui.onboarding.WelcomeFragment"
-        android:label="OnboardingFragment" />
+        android:label="OnboardingFragment">
+        <action
+            android:id="@+id/action_onboardingFragment_to_recentGamesFragment"
+            app:destination="@id/recentGamesFragment"
+            app:popUpTo="@+id/main"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <dialog
+        android:id="@+id/switchTeamDialog"
+        android:name="app.tgayle.bball.ui.SwitchTeamDialog"
+        android:label="SwitchTeamDialog" />
 </navigation>

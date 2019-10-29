@@ -2,6 +2,7 @@ package app.tgayle.bball.ui.recentgames
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
+import androidx.lifecycle.viewModelScope
 import app.tgayle.bball.models.Game
 import app.tgayle.bball.models.Team
 import app.tgayle.bball.models.db.TeamGameJoin
@@ -12,7 +13,6 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class RecentGamesViewModel : BaseViewModel() {
-
     val refreshing = MutableLiveData(false)
     val recentGames = Transformations.map(database.games().getGames()) {
         it.map { game -> game.simple() }
@@ -43,7 +43,7 @@ class RecentGamesViewModel : BaseViewModel() {
 
 
             for (game in games.games) {
-                println(game.homeTeam?.id ?: "empty id for ${game.id}")
+//                println(game.homeTeam?.id ?: "empty id for ${game.id}")
                 teams += listOf(game.visitorTeam, game.homeTeam)
                 joins += listOf(
                     TeamGameJoin(
@@ -73,5 +73,12 @@ class RecentGamesViewModel : BaseViewModel() {
     fun selectNewSeason(year: Int) {
         currentSeason.value = year
         refresh()
+    }
+
+    fun setCurrentTeamFromAbbreviation(abbv: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val team = database.teams().getByAbbreviation(abbv)
+            selectedTeam.postValue(team)
+        }
     }
 }

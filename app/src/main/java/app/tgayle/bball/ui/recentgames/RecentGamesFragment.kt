@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import app.tgayle.BBallApplication
 import app.tgayle.bball.databinding.RecentGamesFragmentBinding
 import app.tgayle.bball.getTeamLogo
 import app.tgayle.bball.ui.SwitchTeamDialog
@@ -21,6 +22,13 @@ class RecentGamesFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel.refresh()
+
+        val lastFavTeam = BBallApplication.sharedPreferences.getString("lastTeam", null)
+        if (lastFavTeam == null) {
+            findNavController().navigate(RecentGamesFragmentDirections.actionRecentGamesFragmentToOnboardingFragment())
+        } else {
+            viewModel.setCurrentTeamFromAbbreviation(lastFavTeam)
+        }
     }
 
     override fun onCreateView(
@@ -63,6 +71,7 @@ class RecentGamesFragment : Fragment() {
         })
 
         viewModel.selectedTeam.observe(viewLifecycleOwner, Observer {
+            binding.currentTeamText.text = it.fullName
             binding.selectedTeamImage.setImageDrawable(context!!.getDrawable(getTeamLogo(it.abbreviation)))
         })
 
@@ -70,18 +79,22 @@ class RecentGamesFragment : Fragment() {
             binding.selectedSeason.text = it
         })
 
+        // Empty observer to get LiveData emitting
+        viewModel.favoritedTeams.observe(viewLifecycleOwner, Observer { })
+
         binding.swipeRefresh.setOnRefreshListener { viewModel.refresh() }
-
-
         binding.currentTeamText.setOnClickListener { showTeamPicker() }
         binding.selectedTeamImage.setOnClickListener { showTeamPicker() }
         binding.selectedSeason.setOnClickListener { showSeasonPicker() }
     }
 
     fun showTeamPicker() {
+        println("outercall")
         viewModel.favoritedTeams.value?.let { teams ->
             val dialog = SwitchTeamDialog(teams)
+            println("called")
             dialog.onTeamSelected = { selectedTeam -> viewModel.selectNewTeam(selectedTeam) }
+            dialog.show(childFragmentManager.beginTransaction(), "teampicker")
         }
     }
 

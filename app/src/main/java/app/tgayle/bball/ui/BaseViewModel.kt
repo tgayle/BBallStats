@@ -6,4 +6,5 @@ import app.tgayle.BBallApplication
 open class BaseViewModel : ViewModel() {
     val service = BBallApplication.basketballService
     val database = BBallApplication.database
+    val sharedPrefs = BBallApplication.sharedPreferences
 }
