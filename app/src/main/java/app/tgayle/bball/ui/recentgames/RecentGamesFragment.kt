@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -12,14 +13,17 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import app.tgayle.BBallApplication
+import app.tgayle.bball.R
 import app.tgayle.bball.databinding.RecentGamesFragmentBinding
 import app.tgayle.bball.getTeamLogo
 import app.tgayle.bball.ui.SwitchTeamDialog
 import app.tgayle.bball.ui.buildIAPDialog
+import com.google.android.material.snackbar.Snackbar
 
 class RecentGamesFragment : Fragment() {
     private lateinit var binding: RecentGamesFragmentBinding
     private val viewModel by viewModels<RecentGamesViewModel>()
+    private var snackbar: Snackbar? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +43,13 @@ class RecentGamesFragment : Fragment() {
     ): View? {
         binding = RecentGamesFragmentBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
+
+        snackbar = Snackbar.make(binding.root, "", Snackbar.LENGTH_INDEFINITE)
+        val snackbarView = snackbar?.view
+        val snackbarTextId = com.google.android.material.R.id.snackbar_text
+        val textView = snackbarView?.findViewById<View>(snackbarTextId) as TextView?
+        textView?.setTextColor(context!!.getColor(R.color.colorAccent))
+
         return binding.root
     }
 
@@ -62,6 +73,15 @@ class RecentGamesFragment : Fragment() {
 
         viewModel.refreshing.observe(viewLifecycleOwner, Observer {
             binding.swipeRefresh.isRefreshing = it
+        })
+
+        viewModel.message.observe(viewLifecycleOwner, Observer {
+            if (it != null) {
+                snackbar?.setText(it)
+                snackbar?.show()
+            } else {
+                snackbar?.dismiss()
+            }
         })
 
         viewModel.recentGames.observe(viewLifecycleOwner, Observer {

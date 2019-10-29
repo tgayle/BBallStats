@@ -14,6 +14,7 @@ import kotlinx.coroutines.launch
 import java.io.IOException
 
 class RecentGamesViewModel : BaseViewModel() {
+    val message = MutableLiveData<String>()
     val refreshing = MutableLiveData(false)
     val selectedTeam = MutableLiveData<Team>()
     val currentSeason = MutableLiveData(2018)
@@ -75,8 +76,11 @@ class RecentGamesViewModel : BaseViewModel() {
                 database.teams().insert(teams)
                 database.games().insert(fixedIds)
                 database.teamGameJoin().insert(joins)
+                message.postValue(null)
+
             } catch (err: IOException) {
                 println("Network error.")
+                message.postValue("There was an issue updating the scores!")
                 err.printStackTrace()
             }
 
