@@ -14,6 +14,7 @@ import app.tgayle.BBallApplication
 import app.tgayle.bball.databinding.RecentGamesFragmentBinding
 import app.tgayle.bball.getTeamLogo
 import app.tgayle.bball.ui.SwitchTeamDialog
+import app.tgayle.bball.ui.buildIAPDialog
 
 class RecentGamesFragment : Fragment() {
     private lateinit var binding: RecentGamesFragmentBinding
@@ -113,7 +114,13 @@ class RecentGamesFragment : Fragment() {
         }
 
         builder.setItems(seasonRanges.toTypedArray()) { dialog, which ->
-            viewModel.selectNewSeason(years[which])
+            val yearSelected = years[which]
+
+            if (2019 - yearSelected > 6) {
+                buildIAPDialog(context!!).show()
+            } else {
+                viewModel.selectNewSeason(years[which])
+            }
         }
 
         builder.show()

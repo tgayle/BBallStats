@@ -11,10 +11,12 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import app.tgayle.BBallApplication
 import app.tgayle.bball.databinding.WelcomeFragmentBinding
+import app.tgayle.bball.ui.buildIAPDialog
 
 class WelcomeFragment : Fragment() {
     private lateinit var binding: WelcomeFragmentBinding
     private val viewModel by viewModels<WelcomeViewModel>()
+    private var numFavorited = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,11 +31,17 @@ class WelcomeFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         val adapter = OnboardingTeamAdapter()
         adapter.onClick = { team ->
-            viewModel.toggleFavorite(team)
-            if (!team.favorited) { // new favorite
-                BBallApplication.sharedPreferences.edit(commit = true) {
-                    putString("lastTeam", team.abbreviation)
+            val teamIsBeingUnfavorited = team.favorited
+
+            if (teamIsBeingUnfavorited || numFavorited < 4) {
+                viewModel.toggleFavorite(team)
+                if (!team.favorited) { // new favorite
+                    BBallApplication.sharedPreferences.edit(commit = true) {
+                        putString("lastTeam", team.abbreviation)
+                    }
                 }
+            } else if (numFavorited > 3) {
+                buildIAPDialog(context!!).show()
             }
         }
 
@@ -43,6 +51,7 @@ class WelcomeFragment : Fragment() {
 
         viewModel.teams.observe(viewLifecycleOwner, Observer {
             adapter.submitList(it)
+            numFavorited = it.filter { it.favorited }.size
         })
 
         viewModel.continueAllowed.observe(viewLifecycleOwner, Observer { allowed ->
