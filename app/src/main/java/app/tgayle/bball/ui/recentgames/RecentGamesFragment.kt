@@ -68,6 +68,12 @@ class RecentGamesFragment : Fragment() {
 
         viewModel.recentGames.observe(viewLifecycleOwner, Observer {
             adapter.submitList(it)
+            binding.recyclerView.scrollToPosition(0)
+            binding.noStatsText.alpha = if (it.isNullOrEmpty()) {
+                1f
+            } else {
+                0f
+            }
         })
 
         viewModel.selectedTeam.observe(viewLifecycleOwner, Observer {
@@ -89,10 +95,8 @@ class RecentGamesFragment : Fragment() {
     }
 
     fun showTeamPicker() {
-        println("outercall")
         viewModel.favoritedTeams.value?.let { teams ->
             val dialog = SwitchTeamDialog(teams)
-            println("called")
             dialog.onTeamSelected = { selectedTeam -> viewModel.selectNewTeam(selectedTeam) }
             dialog.show(childFragmentManager.beginTransaction(), "teampicker")
         }

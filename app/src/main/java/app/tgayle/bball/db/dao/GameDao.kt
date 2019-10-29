@@ -19,6 +19,9 @@ interface GameDao {
     @Query("SELECT * FROM Game WHERE homeTeamId=:teamId OR visitorTeamId=:teamId")
     fun getGamesForTeam(teamId: Int): LiveData<List<GameWithTeams>>
 
+    @Query("SELECT * FROM Game WHERE (homeTeamId=:teamId OR visitorTeamId=:teamId) AND season=:season")
+    fun getGamesForTeamBySeason(teamId: Int?, season: Int?): LiveData<List<GameWithTeams>>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(games: List<Game>)
 

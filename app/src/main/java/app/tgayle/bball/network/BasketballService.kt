@@ -35,8 +35,8 @@ interface BasketballService {
     suspend fun getGames(
         @Query("page") page: Int,
         @Query("per_page") perPage: Int = 100,
-        @Query("seasons") seasons: List<Int?> = emptyList(),
-        @Query("team_ids") teamIds: List<Int?> = emptyList()
+        @Query("seasons[]") seasons: Int?,
+        @Query("team_ids[]") teamIds: Int?
     ): NetworkGames
 
     @GET("games/{id}")
