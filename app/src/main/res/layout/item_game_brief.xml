@@ -4,15 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="game"
             type="app.tgayle.bball.models.Game" />
+
+        <variable
+            name="homeTeam"
+            type="app.tgayle.bball.models.Team" />
+
+        <variable
+            name="visitorTeam"
+            type="app.tgayle.bball.models.Team" />
     </data>
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="120dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp">
@@ -22,15 +29,35 @@
             android:layout_height="match_parent"
             android:padding="8dp">
 
+            <ImageView
+                android:id="@+id/homeTeamImage"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                app:layout_constraintEnd_toStartOf="@id/visitorTeamImage"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/blazers_logo" />
+
+            <ImageView
+                android:id="@+id/visitorTeamImage"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/homeTeamImage"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/bucks_logo" />
+
+
             <TextView
                 android:id="@+id/homeTeamText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
-                android:text="@{game.homeTeam.abbreviation}"
+                android:text="@{homeTeam.abbreviation}"
                 android:textSize="24sp"
-                app:layout_constraintEnd_toStartOf="@id/vsText"
+                app:layout_constraintEnd_toEndOf="@id/homeTeamImage"
                 app:layout_constraintTop_toTopOf="@id/vsText"
+                app:layout_constraintStart_toStartOf="@id/homeTeamImage"
                 tools:text="TEAM 1" />
 
             <TextView
@@ -42,16 +69,17 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@id/homeTeamImage" />
 
             <TextView
                 android:id="@+id/visitorTeamText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:text="@{game.visitorTeam.abbreviation}"
+                android:text="@{visitorTeam.abbreviation}"
                 android:textSize="24sp"
-                app:layout_constraintStart_toEndOf="@id/vsText"
+                app:layout_constraintEnd_toEndOf="@id/visitorTeamImage"
+                app:layout_constraintStart_toStartOf="@id/visitorTeamImage"
                 app:layout_constraintTop_toTopOf="@id/vsText"
                 tools:text="TEAM 2" />
 
@@ -60,8 +88,9 @@
                 android:layout_height="wrap_content"
                 android:text="@{game.homeTeamScore + ` : ` + game.visitorTeamScore}"
                 android:textSize="36sp"
-                app:layout_constraintEnd_toEndOf="@id/visitorTeamText"
-                app:layout_constraintStart_toStartOf="@id/homeTeamText"
+                android:id="@+id/score"
+                app:layout_constraintEnd_toEndOf="@id/visitorTeamImage"
+                app:layout_constraintStart_toStartOf="@id/homeTeamImage"
                 app:layout_constraintTop_toBottomOf="@id/homeTeamText"
                 tools:text="13 : 37" />
 
@@ -71,6 +100,7 @@
                 android:text="@{game.date}"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/score"
                 app:layout_constraintStart_toStartOf="parent"
                 tools:text="October 2, 2019" />
 

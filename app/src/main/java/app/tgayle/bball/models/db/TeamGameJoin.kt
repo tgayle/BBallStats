@@ -1,7 +1,9 @@
-package app.tgayle.bball.models
+package app.tgayle.bball.models.db
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
+import app.tgayle.bball.models.Game
+import app.tgayle.bball.models.Team
 
 @Entity(
     tableName = "team_game_join",

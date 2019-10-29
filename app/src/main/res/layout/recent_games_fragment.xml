@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="viewmodel"
+            type="app.tgayle.bball.ui.recentgames.RecentGamesViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -12,12 +15,87 @@
         android:layout_height="match_parent"
         tools:context=".ui.recentgames.RecentGamesFragment">
 
+        <!--        <TextView-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:id="@+id/currentSeasonHeader"-->
+        <!--            app:layout_constraintTop_toTopOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintEnd_toStartOf="@id/selectedTeamImage"-->
+        <!--            android:layout_marginTop="16dp"-->
+        <!--            android:layout_marginStart="16dp"-->
+        <!--            android:textSize="24sp"-->
+        <!--            android:textStyle="bold"-->
+        <!--            android:text="Season" />-->
+
+        <TextView
+            android:id="@+id/selectedSeason"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:text="@{viewmodel.currentSeason + `-` + viewmodel.currentSeason + 1}"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/selectedTeamImage"
+            tools:text="2018-2019" />
+
+        <!--        <TextView-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:text="Team"-->
+        <!--            android:textSize="24sp"-->
+        <!--            app:layout_constraintTop_toTopOf="@id/currentSeasonHeader"-->
+        <!--            app:layout_constraintStart_toEndOf="@id/currentSeasonHeader"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            android:textStyle="bold"-->
+        <!--            android:id="@+id/currentTeamHeader" />-->
+
+        <ImageView
+            android:id="@+id/selectedTeamImage"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@id/selectedSeason"
+            app:layout_constraintEnd_toEndOf="@id/selectedSeason"
+            app:layout_constraintStart_toStartOf="@id/selectedSeason"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/bucks_logo"
+            tools:text="Any" />
+
+        <TextView
+            android:id="@+id/viewingStatsHeaderText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:text="Viewing stats for:"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/currentTeamText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewmodel.selectedTeam.fullName}"
+            android:textSize="22sp"
+            app:layout_constraintStart_toStartOf="@id/viewingStatsHeaderText"
+            app:layout_constraintTop_toBottomOf="@id/viewingStatsHeaderText"
+            tools:text="Cleveland Caveliers" />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/colorPrimaryDark"
+            app:layout_constraintTop_toBottomOf="@id/selectedSeason" />
+
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/swipeRefresh"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@id/divider">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"

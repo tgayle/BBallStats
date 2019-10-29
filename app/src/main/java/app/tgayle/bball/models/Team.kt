@@ -20,5 +20,6 @@ data class Team(
     @SerializedName("full_name")
     var fullName: String,
     @SerializedName("name")
-    var name: String
+    var name: String,
+    var favorited: Boolean = false
 )

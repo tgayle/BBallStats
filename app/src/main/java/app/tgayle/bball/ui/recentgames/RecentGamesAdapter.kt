@@ -8,12 +8,13 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import app.tgayle.bball.R
 import app.tgayle.bball.databinding.ItemGameBriefBinding
-import app.tgayle.bball.models.Game
+import app.tgayle.bball.getTeamLogo
+import app.tgayle.bball.models.db.GameWithTeams
 
-typealias OnGameClick = (position: Int, game: Game) -> Unit
+typealias OnGameClick = (position: Int, game: GameWithTeams) -> Unit
 typealias OnMenuInteraction = (teamId: Int) -> Unit
 
-class RecentGamesAdapter : ListAdapter<Game, RecentGamesAdapter.RecentGameVH>(DIFF) {
+class RecentGamesAdapter : ListAdapter<GameWithTeams, RecentGamesAdapter.RecentGameVH>(DIFF) {
     var onClick: OnGameClick = { _, _ -> }
     var onMenuItemSelected: OnMenuInteraction = { _ -> }
 
@@ -33,8 +34,19 @@ class RecentGamesAdapter : ListAdapter<Game, RecentGamesAdapter.RecentGameVH>(DI
 
     inner class RecentGameVH(val binding: ItemGameBriefBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(game: Game) {
-            binding.game = game
+        val context = binding.root.context
+
+        fun bind(game: GameWithTeams) {
+            binding.game = game.game
+            binding.homeTeam = game.homeTeam.firstOrNull()
+            binding.visitorTeam = game.visitorTeam.firstOrNull()
+
+            val homeAbbv = game.homeTeam.first().abbreviation
+            val awayAbbv = game.visitorTeam.first().abbreviation
+
+            binding.homeTeamImage.setImageDrawable(context.getDrawable(getTeamLogo(homeAbbv)))
+            binding.visitorTeamImage.setImageDrawable(context.getDrawable(getTeamLogo(awayAbbv)))
+
             binding.executePendingBindings()
             binding.root.setOnClickListener {
                 onClick(adapterPosition, game)
@@ -46,28 +58,32 @@ class RecentGamesAdapter : ListAdapter<Game, RecentGamesAdapter.RecentGameVH>(DI
                 menu.setOnMenuItemClickListener {
                     when (it.itemId) {
                         R.id.homeTeamInfo -> {
-                            onMenuItemSelected(game.homeTeamId)
+                            onMenuItemSelected(game.homeTeam.first().id)
                             true
                         }
                         R.id.visitorTeamInfo -> {
-                            onMenuItemSelected(game.visitorTeamId)
+                            onMenuItemSelected(game.homeTeam.first().id)
                             true
                         }
                         else -> false
                     }
                 }
+                menu.show()
             }
         }
     }
 
     companion object {
-        val DIFF = object : DiffUtil.ItemCallback<Game>() {
-            override fun areItemsTheSame(oldItem: Game, newItem: Game): Boolean {
-                return oldItem.id == newItem.id
+        val DIFF = object : DiffUtil.ItemCallback<GameWithTeams>() {
+            override fun areItemsTheSame(oldItem: GameWithTeams, newItem: GameWithTeams): Boolean {
+                return oldItem.game.id == newItem.game.id
             }
 
-            override fun areContentsTheSame(oldItem: Game, newItem: Game): Boolean {
-                return oldItem == newItem
+            override fun areContentsTheSame(
+                oldItem: GameWithTeams,
+                newItem: GameWithTeams
+            ): Boolean {
+                return oldItem.game == newItem.game
             }
 
         }
