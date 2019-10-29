@@ -1,6 +1,7 @@
 package app.tgayle.bball.ui.recentgames
 
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import app.tgayle.bball.models.Game
 import app.tgayle.bball.models.Team
 import app.tgayle.bball.models.db.TeamGameJoin
@@ -13,9 +14,12 @@ import kotlinx.coroutines.launch
 class RecentGamesViewModel : BaseViewModel() {
 
     val refreshing = MutableLiveData(false)
-    val recentGames = database.games().getGames()
+    val recentGames = Transformations.map(database.games().getGames()) {
+        it.map { game -> game.simple() }
+    }
     val selectedTeam = MutableLiveData<Team>()
     val currentSeason = MutableLiveData(2019)
+    val currentSeasonRange = Transformations.map(currentSeason) { year -> "$year-${year + 1}" }
     val favoritedTeams = database.teams().getFavoritedTeams()
 
     var lastLoadMeta: Meta? = null

@@ -45,7 +45,8 @@ data class Game(
     var homeTeamId: Int = homeTeam?.id ?: 0,
     var visitorTeamId: Int = visitorTeam?.id ?: 0
 ) {
-
+    @Ignore
+    val seasonRange = "$season-${season + 1}"
 
     constructor(
         id: Int,

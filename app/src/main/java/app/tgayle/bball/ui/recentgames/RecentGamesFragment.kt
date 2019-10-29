@@ -66,6 +66,10 @@ class RecentGamesFragment : Fragment() {
             binding.selectedTeamImage.setImageDrawable(context!!.getDrawable(getTeamLogo(it.abbreviation)))
         })
 
+        viewModel.currentSeasonRange.observe(viewLifecycleOwner, Observer {
+            binding.selectedSeason.text = it
+        })
+
         binding.swipeRefresh.setOnRefreshListener { viewModel.refresh() }
 
 

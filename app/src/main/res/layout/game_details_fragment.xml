@@ -4,7 +4,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
         <variable
             name="viewmodel"
             type="app.tgayle.bball.ui.gamedetails.GameDetailsViewModel" />
@@ -22,6 +21,25 @@
             android:layout_height="match_parent"
             tools:context=".ui.gamedetails.GameDetailsFragment">
 
+
+            <ImageView
+                android:id="@+id/homeTeamImage"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                app:layout_constraintEnd_toStartOf="@id/visitorTeamImage"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/blazers_logo" />
+
+            <ImageView
+                android:id="@+id/visitorTeamImage"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/homeTeamImage"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/blazers_logo" />
+
             <TextView
                 android:id="@+id/homeTeamText"
                 android:layout_width="wrap_content"
@@ -29,7 +47,8 @@
                 android:layout_marginEnd="8dp"
                 android:text="@{viewmodel.currentGame.homeTeam.abbreviation}"
                 android:textSize="24sp"
-                app:layout_constraintEnd_toStartOf="@id/vsText"
+                app:layout_constraintEnd_toEndOf="@id/homeTeamImage"
+                app:layout_constraintStart_toStartOf="@id/homeTeamImage"
                 app:layout_constraintTop_toTopOf="@id/vsText"
                 tools:text="TEAM 1" />
 
@@ -42,7 +61,7 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@id/homeTeamImage" />
 
             <TextView
                 android:id="@+id/visitorTeamText"
@@ -51,7 +70,8 @@
                 android:layout_marginStart="8dp"
                 android:text="@{viewmodel.currentGame.visitorTeam.abbreviation}"
                 android:textSize="24sp"
-                app:layout_constraintStart_toEndOf="@id/vsText"
+                app:layout_constraintEnd_toEndOf="@id/visitorTeamImage"
+                app:layout_constraintStart_toStartOf="@id/visitorTeamImage"
                 app:layout_constraintTop_toTopOf="@id/vsText"
                 tools:text="TEAM 2" />
 
@@ -59,7 +79,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{viewmodel.currentGame.homeTeam.fullName}"
-                app:layout_constraintEnd_toStartOf="@id/vsText"
+                app:layout_constraintEnd_toEndOf="@id/homeTeamText"
+                app:layout_constraintStart_toStartOf="@id/homeTeamText"
                 app:layout_constraintTop_toBottomOf="@id/homeTeamText"
                 tools:text="Team 1 Full Name" />
 
@@ -68,14 +89,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{viewmodel.currentGame.visitorTeam.fullName}"
-                app:layout_constraintStart_toEndOf="@id/vsText"
+                app:layout_constraintEnd_toEndOf="@id/visitorTeamText"
+                app:layout_constraintStart_toStartOf="@id/visitorTeamText"
                 app:layout_constraintTop_toBottomOf="@id/visitorTeamText"
                 tools:text="Team 2 Full Name" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{viewmodel.currentGame.homeTeamScore + ` : ` + viewmodel.currentGame.visitorTeamScore}"
+                android:text="@{viewmodel.currentGame.game.homeTeamScore + ` : ` + viewmodel.currentGame.game.visitorTeamScore}"
                 android:textSize="36sp"
                 app:layout_constraintEnd_toEndOf="@id/visitorTeamText"
                 app:layout_constraintStart_toStartOf="@id/homeTeamText"
@@ -85,9 +107,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{viewmodel.currentGame.season + `-` + viewmodel.currentGame.season + 1}"
+                android:text="@{viewmodel.currentGame.game.seasonRange}"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/visitorTeamText"
+                app:layout_constraintTop_toTopOf="parent"
                 tools:text="2018-2019" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

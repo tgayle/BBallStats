@@ -41,4 +41,8 @@
             android:name="teamId"
             app:argType="integer" />
     </fragment>
+    <fragment
+        android:id="@+id/onboardingFragment"
+        android:name="app.tgayle.bball.ui.onboarding.WelcomeFragment"
+        android:label="OnboardingFragment" />
 </navigation>

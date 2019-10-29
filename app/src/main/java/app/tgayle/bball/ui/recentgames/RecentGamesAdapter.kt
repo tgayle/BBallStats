@@ -9,12 +9,12 @@ import androidx.recyclerview.widget.RecyclerView
 import app.tgayle.bball.R
 import app.tgayle.bball.databinding.ItemGameBriefBinding
 import app.tgayle.bball.getTeamLogo
-import app.tgayle.bball.models.db.GameWithTeams
+import app.tgayle.bball.models.db.SimpleGameWithTeams
 
-typealias OnGameClick = (position: Int, game: GameWithTeams) -> Unit
+typealias OnGameClick = (position: Int, game: SimpleGameWithTeams) -> Unit
 typealias OnMenuInteraction = (teamId: Int) -> Unit
 
-class RecentGamesAdapter : ListAdapter<GameWithTeams, RecentGamesAdapter.RecentGameVH>(DIFF) {
+class RecentGamesAdapter : ListAdapter<SimpleGameWithTeams, RecentGamesAdapter.RecentGameVH>(DIFF) {
     var onClick: OnGameClick = { _, _ -> }
     var onMenuItemSelected: OnMenuInteraction = { _ -> }
 
@@ -36,13 +36,13 @@ class RecentGamesAdapter : ListAdapter<GameWithTeams, RecentGamesAdapter.RecentG
         RecyclerView.ViewHolder(binding.root) {
         val context = binding.root.context
 
-        fun bind(game: GameWithTeams) {
+        fun bind(game: SimpleGameWithTeams) {
             binding.game = game.game
-            binding.homeTeam = game.homeTeam.firstOrNull()
-            binding.visitorTeam = game.visitorTeam.firstOrNull()
+            binding.homeTeam = game.homeTeam
+            binding.visitorTeam = game.visitorTeam
 
-            val homeAbbv = game.homeTeam.first().abbreviation
-            val awayAbbv = game.visitorTeam.first().abbreviation
+            val homeAbbv = game.homeTeam.abbreviation
+            val awayAbbv = game.visitorTeam.abbreviation
 
             binding.homeTeamImage.setImageDrawable(context.getDrawable(getTeamLogo(homeAbbv)))
             binding.visitorTeamImage.setImageDrawable(context.getDrawable(getTeamLogo(awayAbbv)))
@@ -52,17 +52,19 @@ class RecentGamesAdapter : ListAdapter<GameWithTeams, RecentGamesAdapter.RecentG
                 onClick(adapterPosition, game)
             }
 
+            // TODO: Reformat date
+
             binding.moreMenuIcon.setOnClickListener {
                 val menu = PopupMenu(binding.root.context, binding.moreMenuIcon)
                 menu.inflate(R.menu.menu_item_game_brief)
                 menu.setOnMenuItemClickListener {
                     when (it.itemId) {
                         R.id.homeTeamInfo -> {
-                            onMenuItemSelected(game.homeTeam.first().id)
+                            onMenuItemSelected(game.homeTeam.id)
                             true
                         }
                         R.id.visitorTeamInfo -> {
-                            onMenuItemSelected(game.homeTeam.first().id)
+                            onMenuItemSelected(game.homeTeam.id)
                             true
                         }
                         else -> false
@@ -74,14 +76,17 @@ class RecentGamesAdapter : ListAdapter<GameWithTeams, RecentGamesAdapter.RecentG
     }
 
     companion object {
-        val DIFF = object : DiffUtil.ItemCallback<GameWithTeams>() {
-            override fun areItemsTheSame(oldItem: GameWithTeams, newItem: GameWithTeams): Boolean {
+        val DIFF = object : DiffUtil.ItemCallback<SimpleGameWithTeams>() {
+            override fun areItemsTheSame(
+                oldItem: SimpleGameWithTeams,
+                newItem: SimpleGameWithTeams
+            ): Boolean {
                 return oldItem.game.id == newItem.game.id
             }
 
             override fun areContentsTheSame(
-                oldItem: GameWithTeams,
-                newItem: GameWithTeams
+                oldItem: SimpleGameWithTeams,
+                newItem: SimpleGameWithTeams
             ): Boolean {
                 return oldItem.game == newItem.game
             }

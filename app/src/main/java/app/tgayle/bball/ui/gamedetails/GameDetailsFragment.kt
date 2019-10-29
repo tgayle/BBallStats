@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import app.tgayle.bball.databinding.GameDetailsFragmentBinding
+import app.tgayle.bball.getTeamLogo
 
 class GameDetailsFragment : Fragment() {
     private lateinit var binding: GameDetailsFragmentBinding
@@ -28,6 +29,12 @@ class GameDetailsFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        viewModel.currentGame.observe(viewLifecycleOwner, Observer {
+            binding.homeTeamImage.setImageDrawable(context!!.getDrawable(getTeamLogo(it.homeTeam.abbreviation)))
+            binding.visitorTeamImage.setImageDrawable(context!!.getDrawable(getTeamLogo(it.visitorTeam.abbreviation)))
+        })
+
         viewModel.loading.observe(viewLifecycleOwner, Observer {
             binding.swipeRefresh.isRefreshing = it
         })

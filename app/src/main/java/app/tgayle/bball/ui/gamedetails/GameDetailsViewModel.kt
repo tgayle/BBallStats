@@ -8,7 +8,9 @@ class GameDetailsViewModel : BaseViewModel() {
     private val currentGameId = MutableLiveData(0)
 
     val currentGame = Transformations.switchMap(currentGameId) {
-        database.teamGameJoin().getGame(it)
+        Transformations.map(database.games().getGame(it)) {
+            it.simple()
+        }
     }
 
     val loading = Transformations.map(currentGame) { it == null }
