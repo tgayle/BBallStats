@@ -1,6 +1,7 @@
 package app.tgayle.bball.ui
 
 import android.content.Context
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 
 fun buildIAPDialog(context: Context): AlertDialog {
@@ -14,7 +15,9 @@ fun buildIAPDialog(context: Context): AlertDialog {
         """.trimMargin()
         )
         .setCancelable(false)
-        .setPositiveButton("Purchase Premium", { dialog, which -> })
+        .setPositiveButton("Purchase Premium", { dialog, which ->
+            Toast.makeText(context, "Insert IAP here", Toast.LENGTH_SHORT).show()
+        })
         .setNegativeButton("Nah", { dialog, which -> })
         .create()
 }

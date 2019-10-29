@@ -11,9 +11,6 @@
         android:label="recent_games_fragment"
         tools:layout="@layout/recent_games_fragment">
         <action
-            android:id="@+id/action_listTeamsFragment_to_teamDetailsFragment"
-            app:destination="@id/teamDetailsFragment" />
-        <action
             android:id="@+id/action_listTeamsFragment_to_gameDetailsFragment"
             app:destination="@id/gameDetailsFragment" />
         <action
@@ -30,23 +27,8 @@
         android:name="app.tgayle.bball.ui.gamedetails.GameDetailsFragment"
         android:label="game_details_fragment"
         tools:layout="@layout/game_details_fragment">
-        <action
-            android:id="@+id/action_gameDetailsFragment_to_teamDetailsFragment"
-            app:destination="@id/teamDetailsFragment" />
         <argument
             android:name="gameId"
-            app:argType="integer" />
-    </fragment>
-    <fragment
-        android:id="@+id/teamDetailsFragment"
-        android:name="app.tgayle.bball.ui.teamdetails.TeamDetailsFragment"
-        android:label="team_details_fragment"
-        tools:layout="@layout/team_details_fragment">
-        <action
-            android:id="@+id/action_teamDetailsFragment_to_gameDetailsFragment"
-            app:destination="@id/gameDetailsFragment" />
-        <argument
-            android:name="teamId"
             app:argType="integer" />
     </fragment>
     <fragment

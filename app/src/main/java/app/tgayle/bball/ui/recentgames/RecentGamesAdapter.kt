@@ -10,6 +10,8 @@ import app.tgayle.bball.R
 import app.tgayle.bball.databinding.ItemGameBriefBinding
 import app.tgayle.bball.getTeamLogo
 import app.tgayle.bball.models.db.SimpleGameWithTeams
+import java.text.SimpleDateFormat
+import java.util.*
 
 typealias OnGameClick = (position: Int, game: SimpleGameWithTeams) -> Unit
 typealias OnMenuInteraction = (teamId: Int) -> Unit
@@ -40,12 +42,17 @@ class RecentGamesAdapter : ListAdapter<SimpleGameWithTeams, RecentGamesAdapter.R
             binding.game = game.game
             binding.homeTeam = game.homeTeam
             binding.visitorTeam = game.visitorTeam
+            val initialDate =
+                SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX", Locale.US).parse(game.game.date)
+            val date =
+                SimpleDateFormat("EEEE MMMM dd, yyyy, h:mm a zz", Locale.US).format(initialDate)
 
             val homeAbbv = game.homeTeam.abbreviation
             val awayAbbv = game.visitorTeam.abbreviation
 
             binding.homeTeamImage.setImageDrawable(context.getDrawable(getTeamLogo(homeAbbv)))
             binding.visitorTeamImage.setImageDrawable(context.getDrawable(getTeamLogo(awayAbbv)))
+            binding.gameDate.text = date.toString()
 
             binding.executePendingBindings()
             binding.root.setOnClickListener {

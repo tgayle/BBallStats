@@ -25,6 +25,15 @@
             app:layout_constraintTop_toBottomOf="@id/selectedTeamImage"
             tools:text="2018-2019" />
 
+        <Button
+            android:id="@+id/switchTeamBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Change Current Team"
+            app:layout_constraintBottom_toTopOf="@id/divider"
+            app:layout_constraintStart_toStartOf="@id/currentTeamText"
+            app:layout_constraintTop_toBottomOf="@id/currentTeamText" />
+
         <ImageView
             android:id="@+id/selectedTeamImage"
             android:layout_width="72dp"

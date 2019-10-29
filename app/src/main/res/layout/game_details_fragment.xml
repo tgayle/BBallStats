@@ -13,12 +13,12 @@
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
         android:id="@+id/swipeRefresh"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_margin="16dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             tools:context=".ui.gamedetails.GameDetailsFragment">
 
 
@@ -99,6 +99,7 @@
                 android:layout_height="wrap_content"
                 android:text="@{viewmodel.currentGame.game.homeTeamScore + ` : ` + viewmodel.currentGame.game.visitorTeamScore}"
                 android:textSize="36sp"
+                android:id="@+id/score"
                 app:layout_constraintEnd_toEndOf="@id/visitorTeamText"
                 app:layout_constraintStart_toStartOf="@id/homeTeamText"
                 app:layout_constraintTop_toBottomOf="@id/visitorTeamFullName"
@@ -111,6 +112,26 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="2018-2019" />
+
+            <TextView
+                android:id="@+id/gameDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/score"
+                tools:text="October 2, 2019" />
+
+            <Button
+                android:id="@+id/back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Back to all Games"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/gameDate" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
