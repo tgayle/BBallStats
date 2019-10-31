@@ -12,11 +12,23 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
+
+        findNavController(R.id.nav_host_fragment).addOnDestinationChangedListener { _, _, _ ->
+            invalidateOptionsMenu()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val inflater = menuInflater
         inflater.inflate(R.menu.menu_activity, menu)
+
+        val favoriteTeamsItem = menu?.findItem(R.id.chooseTeams)
+
+        favoriteTeamsItem?.let {
+            it.isVisible =
+                findNavController(R.id.nav_host_fragment).currentDestination?.id != R.id.onboardingFragment
+        }
+
         return true
     }
 

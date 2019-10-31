@@ -17,7 +17,7 @@ class RecentGamesViewModel : BaseViewModel() {
     val message = MutableLiveData<String>()
     val refreshing = MutableLiveData(false)
     val selectedTeam = MutableLiveData<Team>()
-    val currentSeason = MutableLiveData(2018)
+    val currentSeason = MutableLiveData(2019)
 
     val recentGames = Transformations.switchMap(selectedTeam) { team ->
         Transformations.switchMap(currentSeason) { season ->
@@ -98,6 +98,22 @@ class RecentGamesViewModel : BaseViewModel() {
         currentSeason.value = year
         lastLoadMeta = null
         refresh()
+    }
+
+    fun viewNextTeam() {
+        favoritedTeams.value?.let { favoritedTeams ->
+            val currentTeam = selectedTeam.value
+            selectedTeam.value =
+                favoritedTeams[(favoritedTeams.indexOf(currentTeam) + 1) % favoritedTeams.size]
+        }
+    }
+
+    fun viewPreviousTeam() {
+        favoritedTeams.value?.let { favoritedTeams ->
+            val currentTeam = selectedTeam.value
+            selectedTeam.value =
+                favoritedTeams[(favoritedTeams.indexOf(currentTeam) - 1) % favoritedTeams.size]
+        }
     }
 
     fun setCurrentTeamFromAbbreviation(abbv: String) {

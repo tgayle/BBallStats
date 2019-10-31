@@ -106,11 +106,33 @@ class RecentGamesFragment : Fragment() {
         // Empty observer to get LiveData emitting
         viewModel.favoritedTeams.observe(viewLifecycleOwner, Observer { })
 
+        binding.previousSeasonButton.setOnClickListener { switchSeason(viewModel.currentSeason.value!! - 1) }
+        binding.nextSeasonButton.setOnClickListener {
+            val newYear = viewModel.currentSeason.value!! + 1
+
+            if (newYear < 2020) {
+                switchSeason(newYear)
+            } else {
+                Toast.makeText(context, "No future seasons...", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        binding.nextTeamButton.setOnClickListener { viewModel.viewNextTeam() }
+        binding.previousTeamBtn.setOnClickListener { viewModel.viewPreviousTeam() }
+
         binding.swipeRefresh.setOnRefreshListener { viewModel.refresh() }
-        binding.switchTeamBtn.setOnClickListener { showTeamPicker() }
+//        binding.switchTeamBtn.setOnClickListener { showTeamPicker() }
         binding.currentTeamText.setOnClickListener { showTeamPicker() }
         binding.selectedTeamImage.setOnClickListener { showTeamPicker() }
         binding.selectedSeason.setOnClickListener { showSeasonPicker() }
+    }
+
+    private fun switchSeason(newYear: Int) {
+        if (canViewThisSeason(newYear)) {
+            viewModel.selectNewSeason(newYear)
+        } else {
+            buildIAPDialog(context!!).show()
+        }
     }
 
     fun showTeamPicker() {
@@ -126,7 +148,7 @@ class RecentGamesFragment : Fragment() {
 
         val years = arrayListOf<Int>()
         val seasonRanges = arrayListOf<String>()
-        for (year in 2018 downTo 1979) {
+        for (year in 2019 downTo 1979) {
             years += year
             seasonRanges += "$year-${year + 1}"
         }
@@ -134,14 +156,16 @@ class RecentGamesFragment : Fragment() {
         builder.setItems(seasonRanges.toTypedArray()) { dialog, which ->
             val yearSelected = years[which]
 
-            if (2019 - yearSelected > 6) {
-                buildIAPDialog(context!!).show()
-            } else {
+            if (canViewThisSeason(yearSelected)) {
                 viewModel.selectNewSeason(years[which])
+            } else {
+                buildIAPDialog(context!!).show()
             }
         }
 
         builder.show()
     }
+
+    fun canViewThisSeason(year: Int) = 2019 - year < 6
 
 }
