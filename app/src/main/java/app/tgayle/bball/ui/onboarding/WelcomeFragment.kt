@@ -80,6 +80,7 @@ class WelcomeFragment : Fragment() {
 
         viewModel.teams.observe(viewLifecycleOwner, Observer {
             adapter.submitList(it)
+            binding.teamCount.text = "${it.filter { it.favorited }.size}/4"
             numFavorited = it.filter { it.favorited }.size
         })
 

@@ -45,8 +45,8 @@
 
                 <ImageView
                     android:id="@+id/previousSeasonButton"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
                     android:src="@drawable/chevron_left"
                     app:layout_constraintBottom_toBottomOf="@id/selectedSeason"
                     app:layout_constraintEnd_toStartOf="@id/selectedSeason"
@@ -55,8 +55,8 @@
 
                 <ImageView
                     android:id="@+id/nextSeasonButton"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
                     android:src="@drawable/chevron_right"
                     app:layout_constraintBottom_toBottomOf="@id/selectedSeason"
                     app:layout_constraintStart_toEndOf="@id/selectedSeason"
@@ -75,16 +75,16 @@
 
             <ImageView
                 android:id="@+id/previousTeamBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
                 android:src="@drawable/chevron_left"
                 app:layout_constraintBottom_toBottomOf="@id/selectedTeamImage"
                 app:layout_constraintEnd_toStartOf="@id/selectedTeamImage"
                 app:layout_constraintTop_toTopOf="@id/selectedTeamImage" />
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
                 android:id="@+id/nextTeamButton"
                 android:src="@drawable/chevron_right"
                 app:layout_constraintBottom_toBottomOf="@id/selectedTeamImage"
