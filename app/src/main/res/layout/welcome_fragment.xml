@@ -42,7 +42,6 @@
                     android:id="@+id/moreTeamsBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:onClick="@{() -> buildIAPDialog(context)}"
                     android:text="Want more teams?"
                     android:textSize="18sp"
                     app:layout_constraintEnd_toEndOf="@id/teamCount"

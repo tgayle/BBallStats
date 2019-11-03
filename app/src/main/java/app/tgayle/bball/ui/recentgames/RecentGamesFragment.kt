@@ -16,6 +16,8 @@ import app.tgayle.BBallApplication
 import app.tgayle.bball.R
 import app.tgayle.bball.databinding.RecentGamesFragmentBinding
 import app.tgayle.bball.getTeamLogo
+import app.tgayle.bball.models.db.SimpleGameWithTeams
+import app.tgayle.bball.ui.ItemOrAd
 import app.tgayle.bball.ui.SwitchTeamDialog
 import app.tgayle.bball.ui.buildIAPDialog
 import com.google.android.material.snackbar.Snackbar
@@ -85,13 +87,23 @@ class RecentGamesFragment : Fragment() {
         })
 
         viewModel.recentGames.observe(viewLifecycleOwner, Observer {
-            adapter.submitList(it)
-            binding.recyclerView.scrollToPosition(0)
-            binding.noStatsText.alpha = if (it.isNullOrEmpty()) {
-                1f
+            val gamesWithAds = mutableListOf<ItemOrAd<SimpleGameWithTeams>>()
+
+            if (it.isNullOrEmpty()) {
+                binding.noStatsText.alpha = 1f
             } else {
-                0f
+                it.forEachIndexed { index, gameWithTeams ->
+                    if (index % 5 == 0) {
+                        gamesWithAds.add(ItemOrAd.Ad())
+                    }
+                    gamesWithAds += ItemOrAd.Item(gameWithTeams)
+                }
+
+                binding.noStatsText.alpha = 0f
             }
+
+            adapter.submitList(gamesWithAds)
+            binding.recyclerView.scrollToPosition(0)
         })
 
         viewModel.selectedTeam.observe(viewLifecycleOwner, Observer {
