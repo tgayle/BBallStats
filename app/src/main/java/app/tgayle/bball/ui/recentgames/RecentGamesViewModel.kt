@@ -103,16 +103,18 @@ class RecentGamesViewModel : BaseViewModel() {
     fun viewNextTeam() {
         favoritedTeams.value?.let { favoritedTeams ->
             val currentTeam = selectedTeam.value
-            selectedTeam.value =
-                favoritedTeams[(favoritedTeams.indexOf(currentTeam) + 1) % favoritedTeams.size]
+            val newIndex = (favoritedTeams.indexOf(currentTeam) + 1) % favoritedTeams.size
+            selectedTeam.value = favoritedTeams[newIndex]
         }
     }
 
     fun viewPreviousTeam() {
         favoritedTeams.value?.let { favoritedTeams ->
             val currentTeam = selectedTeam.value
+            val currentIndex = favoritedTeams.indexOf(currentTeam)
+            // Beginning of list wraps back to end of list
             selectedTeam.value =
-                favoritedTeams[(favoritedTeams.indexOf(currentTeam) - 1) % favoritedTeams.size]
+                favoritedTeams[Math.floorMod(currentIndex - 1, favoritedTeams.size)]
         }
     }
 

@@ -109,21 +109,21 @@ class RecentGamesAdapter :
                 oldItem: ItemOrAd<SimpleGameWithTeams>,
                 newItem: ItemOrAd<SimpleGameWithTeams>
             ): Boolean {
-                if (oldItem is ItemOrAd.Item && newItem is ItemOrAd.Item) {
+                return if (oldItem is ItemOrAd.Item && newItem is ItemOrAd.Item) {
                     return oldItem.item.game.id == newItem.item.game.id
+                } else {
+                    oldItem is ItemOrAd.Ad && newItem is ItemOrAd.Ad
                 }
-
-                return false
             }
 
             override fun areContentsTheSame(
                 oldItem: ItemOrAd<SimpleGameWithTeams>,
                 newItem: ItemOrAd<SimpleGameWithTeams>
             ): Boolean {
-                return when {
-                    oldItem is ItemOrAd.Item && newItem is ItemOrAd.Item -> oldItem.item.game == newItem.item.game
-                    oldItem is ItemOrAd.Ad && newItem is ItemOrAd.Ad -> true
-                    else -> false
+                return if (oldItem is ItemOrAd.Item && newItem is ItemOrAd.Item) {
+                    oldItem.item.game == newItem.item.game
+                } else {
+                    oldItem is ItemOrAd.Ad && newItem is ItemOrAd.Ad
                 }
             }
 
