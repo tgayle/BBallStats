@@ -41,6 +41,9 @@
                     app:layout_constraintEnd_toStartOf="@id/nextSeasonButton"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
                     tools:text="2018-2019" />
 
                 <ImageView
@@ -48,8 +51,11 @@
                     android:layout_width="28dp"
                     android:layout_height="28dp"
                     android:src="@drawable/chevron_left"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
                     app:layout_constraintBottom_toBottomOf="@id/selectedSeason"
                     app:layout_constraintEnd_toStartOf="@id/selectedSeason"
+                    android:focusable="true"
                     app:layout_constraintTop_toTopOf="@id/selectedSeason" />
 
 
@@ -58,37 +64,51 @@
                     android:layout_width="28dp"
                     android:layout_height="28dp"
                     android:src="@drawable/chevron_right"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
                     app:layout_constraintBottom_toBottomOf="@id/selectedSeason"
                     app:layout_constraintStart_toEndOf="@id/selectedSeason"
+                    android:focusable="true"
                     app:layout_constraintTop_toTopOf="@id/selectedSeason" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <!--            <Button-->
-            <!--                android:id="@+id/switchTeamBtn"-->
-            <!--                android:layout_width="wrap_content"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:text="Change Current Team"-->
-            <!--                app:layout_constraintBottom_toTopOf="@id/divider"-->
-            <!--                app:layout_constraintStart_toStartOf="@id/currentTeamText"-->
-            <!--                app:layout_constraintTop_toBottomOf="@id/currentTeamText" />-->
 
             <ImageView
                 android:id="@+id/previousTeamBtn"
                 android:layout_width="28dp"
                 android:layout_height="28dp"
                 android:src="@drawable/chevron_left"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
                 app:layout_constraintBottom_toBottomOf="@id/selectedTeamImage"
                 app:layout_constraintEnd_toStartOf="@id/selectedTeamImage"
+                android:focusable="true"
                 app:layout_constraintTop_toTopOf="@id/selectedTeamImage" />
+
+            <ImageView
+                android:id="@+id/refreshBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:contentDescription="Refresh"
+                android:focusable="true"
+                android:src="@drawable/ic_refresh"
+                android:tooltipText="Refresh"
+                app:layout_constraintBottom_toTopOf="@id/divider"
+                app:layout_constraintStart_toStartOf="parent" />
 
             <ImageView
                 android:layout_width="28dp"
                 android:layout_height="28dp"
                 android:id="@+id/nextTeamButton"
                 android:src="@drawable/chevron_right"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
                 app:layout_constraintBottom_toBottomOf="@id/selectedTeamImage"
                 app:layout_constraintStart_toEndOf="@id/selectedTeamImage"
+                android:focusable="true"
                 app:layout_constraintTop_toTopOf="@id/selectedTeamImage" />
 
             <ImageView
@@ -98,22 +118,15 @@
                 android:padding="4dp"
                 android:textSize="18sp"
                 android:scaleType="fitXY"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
                 app:layout_constraintBottom_toBottomOf="@id/seasonWrapper"
                 app:layout_constraintEnd_toEndOf="@id/seasonWrapper"
                 app:layout_constraintStart_toStartOf="@id/seasonWrapper"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:src="@drawable/bucks_logo"
+                android:focusable="true"
                 tools:text="Any" />
-
-            <!--            <ImageView-->
-            <!--                android:layout_width="16dp"-->
-            <!--                android:layout_height="16dp"-->
-            <!--                android:src="@drawable/ic_edit_black_24dp"-->
-            <!--                android:layout_margin="4dp"-->
-            <!--                android:elevation="4dp"-->
-            <!--                android:tint="@color/colorPrimary"-->
-            <!--                app:layout_constraintTop_toTopOf="@id/selectedTeamImage"-->
-            <!--                app:layout_constraintEnd_toEndOf="@id/selectedTeamImage"/>-->
 
             <TextView
                 android:id="@+id/viewingStatsHeaderText"

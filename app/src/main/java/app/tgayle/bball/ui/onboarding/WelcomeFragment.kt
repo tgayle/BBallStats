@@ -1,5 +1,6 @@
 package app.tgayle.bball.ui.onboarding
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +12,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import app.tgayle.BBallApplication
-import app.tgayle.bball.R
 import app.tgayle.bball.databinding.WelcomeFragmentBinding
 import app.tgayle.bball.ui.buildIAPDialog
 import com.google.android.material.snackbar.Snackbar
@@ -35,7 +35,7 @@ class WelcomeFragment : Fragment() {
         val snackbarView = snackbar?.view
         val snackbarTextId = com.google.android.material.R.id.snackbar_text
         val textView = snackbarView?.findViewById<View>(snackbarTextId) as TextView?
-        textView?.setTextColor(context!!.getColor(R.color.colorAccent))
+        textView?.setTextColor(Color.WHITE)
 
         return binding.root
     }
@@ -43,6 +43,8 @@ class WelcomeFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         val adapter = OnboardingTeamAdapter()
+        binding.teamsList.adapter = adapter
+
         adapter.onClick = { team ->
             val teamIsBeingUnfavorited = team.favorited
 
@@ -57,13 +59,6 @@ class WelcomeFragment : Fragment() {
                 buildIAPDialog(context!!).show()
             }
         }
-
-
-        binding.continueFab.setOnClickListener {
-            findNavController().navigate(WelcomeFragmentDirections.actionOnboardingFragmentToRecentGamesFragment())
-        }
-
-        binding.swipeRefresh.setOnRefreshListener { viewModel.loadTeams() }
 
         viewModel.message.observe(viewLifecycleOwner, Observer {
             if (it != null) {
@@ -92,7 +87,12 @@ class WelcomeFragment : Fragment() {
             }
         })
 
-        binding.teamsList.adapter = adapter
+        binding.continueFab.setOnClickListener {
+            findNavController().navigate(WelcomeFragmentDirections.actionOnboardingFragmentToRecentGamesFragment())
+        }
+
+        binding.moreTeamsBtn.setOnClickListener { buildIAPDialog(context!!).show() }
+        binding.swipeRefresh.setOnRefreshListener { viewModel.loadTeams() }
     }
 
 }

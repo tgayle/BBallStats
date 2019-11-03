@@ -80,7 +80,7 @@ class RecentGamesViewModel : BaseViewModel() {
 
             } catch (err: IOException) {
                 println("Network error.")
-                message.postValue("There was an issue updating the scores!")
+                message.postValue("Unable to connect to the internet.")
                 err.printStackTrace()
             }
 

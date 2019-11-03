@@ -1,6 +1,7 @@
 package app.tgayle.bball.ui.recentgames
 
 import android.app.AlertDialog
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,7 +14,6 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import app.tgayle.BBallApplication
-import app.tgayle.bball.R
 import app.tgayle.bball.databinding.RecentGamesFragmentBinding
 import app.tgayle.bball.getTeamLogo
 import app.tgayle.bball.models.db.SimpleGameWithTeams
@@ -50,7 +50,7 @@ class RecentGamesFragment : Fragment() {
         val snackbarView = snackbar?.view
         val snackbarTextId = com.google.android.material.R.id.snackbar_text
         val textView = snackbarView?.findViewById<View>(snackbarTextId) as TextView?
-        textView?.setTextColor(context!!.getColor(R.color.colorAccent))
+        textView?.setTextColor(Color.WHITE)
 
         return binding.root
     }
@@ -132,6 +132,7 @@ class RecentGamesFragment : Fragment() {
         binding.nextTeamButton.setOnClickListener { viewModel.viewNextTeam() }
         binding.previousTeamBtn.setOnClickListener { viewModel.viewPreviousTeam() }
 
+        binding.refreshBtn.setOnClickListener { viewModel.refresh() }
         binding.swipeRefresh.setOnRefreshListener { viewModel.refresh() }
 //        binding.switchTeamBtn.setOnClickListener { showTeamPicker() }
         binding.currentTeamText.setOnClickListener { showTeamPicker() }
